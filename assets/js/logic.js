@@ -37,3 +37,24 @@ function showQuestion(questionIndex) {
         choicesContainer.appendChild(button);
     }
 }
+// Function that checks the answer and displays correct or wrong
+function checkAnswer(event) {
+    var answer = event.target.innerHTML;
+    if (answer === questions[currentQuestion].answer) {
+        score++;
+        document.getElementById("feedback").innerHTML = "Correct!";
+    } else {
+        timer -= 10;
+        document.getElementById("feedback").innerHTML = "Wrong!";
+    }
+    document.getElementById("feedback").classList.remove("hide");
+    setTimeout(function() {
+        document.getElementById("feedback").classList.add("hide");
+    }, 1000);
+    currentQuestion++;
+    if (currentQuestion === questions.length) {
+        endQuiz();
+    } else {
+        showQuestion(currentQuestion);
+    }
+}
