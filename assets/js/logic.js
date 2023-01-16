@@ -3,6 +3,10 @@ var currentQuestion = 0;
 var score = 0;
 var timer = 0;
 
+var correctSound = new Audio("assets/sfx/correct.wav");
+var incorrectSound = new Audio("assets/sfx/incorrect.wav");
+
+
 // Created event listener that starts the quiz
 document.getElementById("start").addEventListener("click", startQuiz);
 
@@ -41,9 +45,11 @@ function showQuestion(questionIndex) {
 function checkAnswer(event) {
     var answer = event.target.innerHTML;
     if (answer === questions[currentQuestion].answer) {
+        correctSound.play();
         document.getElementById("feedback").innerHTML = "Correct!";
     } else {
         timer -= 10;
+        incorrectSound.play();
         document.getElementById("feedback").innerHTML = "Wrong!";
     }
     document.getElementById("feedback").classList.remove("hide");
