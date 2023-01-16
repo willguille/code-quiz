@@ -41,7 +41,6 @@ function showQuestion(questionIndex) {
 function checkAnswer(event) {
     var answer = event.target.innerHTML;
     if (answer === questions[currentQuestion].answer) {
-        score++;
         document.getElementById("feedback").innerHTML = "Correct!";
     } else {
         timer -= 10;
@@ -57,4 +56,21 @@ function checkAnswer(event) {
     } else {
         showQuestion(currentQuestion);
     }
+}
+// Function that ends the quiz and displays the result on screen and an eventlistener that saves the score with your initials
+function endQuiz() {
+    score = timer;
+    document.getElementById("time").classList.add("hide");
+    document.getElementById("questions").classList.add("hide");
+    document.getElementById("end-screen").classList.remove("hide");
+    document.getElementById("final-score").innerHTML = score;
+    document.getElementById("submit").addEventListener("click", saveScore);
+}
+// Function that saves your score and initials into local storage
+function saveScore() {
+    var initials = document.getElementById("initials").value;
+    var highscores = JSON.parse(localStorage.getItem("highscores")) || [];
+    highscores.push({initials: initials, score: score});
+    localStorage.setItem("highscores", JSON.stringify(highscores));
+    window.location.href = "highscores.html";
 }
